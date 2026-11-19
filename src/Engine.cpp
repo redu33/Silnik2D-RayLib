@@ -152,7 +152,10 @@ void Engine::renderScreen(){
     EndDrawing();
 
 
-    // todo zad. 3 i reszta z 3 instr
-    // todo wypelnianie jednym ze sposobow wybranym
     // todo obracanie wzgledem punktu jakiegos np srodka figury
+    // opisac w dokumentacji klasy, metody itp. po co sa i co robia
+    // sprawozdanie ma byc glownie insturkcja obslugi silnika w zasadzie, takie cos ze jak stworzyc cos za pomoca silnika
+    // to znaczy jaki obiekt stworzyc, jakie metody wykorzystac, jakie argumenty przyjmuja itp. i to smao przy rotacji,
+    // wypelnianiu i cos o bitmapach, czyli po prostu jak sie ten silnik obsluguje jakby nie patrzec
+    //
 }
