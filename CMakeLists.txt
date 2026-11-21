@@ -10,6 +10,7 @@ add_executable(Silnk2D src/main.cpp
         src/Engine.h
         src/Primitives.cpp
         src/Primitives.h
+        src/Objects.h
 )
 
 target_link_libraries(Silnk2D PRIVATE raylib)

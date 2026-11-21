@@ -2,40 +2,52 @@
 #define SILNK2D_PRIMITIVES_H
 #include <raylib.h>
 #include <vector>
-#include <stack>
+#include "Objects.h"
 
 using namespace std;
 
 class PrimitiveRenderer;
 
-class Point2D {
+class Point2D : public TransformableObject {
 private:
-    int x;
-    int y;
+    float x;
+    float y;
 
 public:
     Point2D();
-    Point2D(int x, int y);
-    int getX();
-    int getY();
-    void setX(int x);
-    void setY(int y);
-    void setXY(int x, int y);
+    Point2D(float x, float y);
+
+    float getX() const;
+    float getY() const;
+
+    void setX(float x);
+    void setY(float y);
+    void setXY(float x, float y);
+
     void draw(PrimitiveRenderer &renderer, Color color);
+
+    void translate(float tx, float ty) override;
+    void rotate(const Point2D &origin, float angleRad) override;
+    void scale(const Point2D &origin, float kx, float ky) override;
 };
 
-class LineSegment {
+class LineSegment : public TransformableObject {
 private:
     Point2D start;
     Point2D end;
 
 public:
     LineSegment(Point2D start, Point2D end);
-    Point2D getStart();
-    Point2D getEnd();
+    Point2D getStart() const;
+    Point2D getEnd() const;
     void setStart(Point2D start);
     void setEnd(Point2D end);
+
     void draw(PrimitiveRenderer &renderer, Color color);
+
+    void translate(float tx, float ty) override;
+    void rotate(const Point2D &origin, float angleRad) override;
+    void scale(const Point2D &origin, float kx, float ky) override;
 };
 
 class PrimitiveRenderer {
@@ -57,7 +69,7 @@ public:
     Color getPixelColor(int x, int y);
     void clearBuffer(Color clearColor);
     bool areColorsEqual(Color c1, Color c2);
-    void boundryFill(Point2D seed, Color fillColor, Color boundryColor);
+    void boundaryFill(Point2D seed, Color fillColor, Color boundryColor);
 };
 
 #endif

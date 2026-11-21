@@ -115,6 +115,8 @@ void Engine::renderScreen(){
     clnScreen(config.clearColor);
     renderer.clearBuffer(config.clearColor);
 
+    DrawFPS(10,10);
+
     for (Shape shape : shapesToDraw) {
         switch (shape) {
             case Shape::LINE:
@@ -122,19 +124,19 @@ void Engine::renderScreen(){
                 break;
             case Shape::RECTANGLE:
                 renderer.drawRectangle(Point2D(300, 200), 200, 200, GREEN);
-                renderer.boundryFill(Point2D(401, 296), GREEN, GREEN);
+                renderer.boundaryFill(Point2D(401, 296), GREEN, GREEN);
                 break;
             case Shape::CIRCLE:
                 renderer.drawCircle(Point2D(400, 300), 100, BLUE);
-                renderer.boundryFill(Point2D(401, 296), BLUE, BLUE);
+                renderer.boundaryFill(Point2D(401, 296), BLUE, BLUE);
                 break;
             case Shape::ELLIPSE:
                 renderer.drawEllipse(Point2D(400, 300), 150, 80, YELLOW);
-                renderer.boundryFill(Point2D(401, 296), YELLOW, YELLOW);
+                renderer.boundaryFill(Point2D(401, 296), YELLOW, YELLOW);
                 break;
             case Shape::TRIANGLE:
                 renderer.drawTriangle(Point2D(300, 200), Point2D(500, 200), Point2D(400, 400), ORANGE);
-                renderer.boundryFill(Point2D(401, 296), ORANGE, ORANGE);
+                renderer.boundaryFill(Point2D(401, 296), ORANGE, ORANGE);
                 break;
             case Shape::POLYGON:
                 vector<Point2D> wielokat = {
@@ -145,14 +147,14 @@ void Engine::renderScreen(){
                 Point2D(300, 270)
             };
                 renderer.drawPolygon(wielokat, MAGENTA);
-                renderer.boundryFill(Point2D(401, 296), MAGENTA, MAGENTA);
+                renderer.boundaryFill(Point2D(401, 296), MAGENTA, MAGENTA);
                 break;
         }
     }
     EndDrawing();
 
 
-    // todo obracanie wzgledem punktu jakiegos np srodka figury
+    // dodac klasy z figurami jeszcze i 3 zadanie z 4 instrukcji
     // opisac w dokumentacji klasy, metody itp. po co sa i co robia
     // sprawozdanie ma byc glownie insturkcja obslugi silnika w zasadzie, takie cos ze jak stworzyc cos za pomoca silnika
     // to znaczy jaki obiekt stworzyc, jakie metody wykorzystac, jakie argumenty przyjmuja itp. i to smao przy rotacji,
