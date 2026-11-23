@@ -202,7 +202,7 @@ void PrimitiveRenderer::boundaryFill(Point2D seed, Color fillColor, Color bounda
     }
 }
 
-
+//
 
 LineSegment::LineSegment(Point2D start, Point2D end) {
     this->start = start;

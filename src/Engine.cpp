@@ -154,7 +154,7 @@ void Engine::renderScreen(){
     EndDrawing();
 
 
-    // dodac klasy z figurami jeszcze i 3 zadanie z 4 instrukcji
+    // dodac klasy z figurami jeszcze i 3 zadanie z 4 instrukcjii
     // opisac w dokumentacji klasy, metody itp. po co sa i co robia
     // sprawozdanie ma byc glownie insturkcja obslugi silnika w zasadzie, takie cos ze jak stworzyc cos za pomoca silnika
     // to znaczy jaki obiekt stworzyc, jakie metody wykorzystac, jakie argumenty przyjmuja itp. i to smao przy rotacji,
