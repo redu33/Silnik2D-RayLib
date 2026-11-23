@@ -1,6 +1,12 @@
 #ifndef SILNK2D_GAMEOBJECT_H
 #define SILNK2D_GAMEOBJECT_H
 
+#include "raylib.h"
+#include <vector>
+#include "BitmapHandler.h"
+
+using namespace std;
+
 class PrimitiveRenderer;
 class Point2D;
 
@@ -27,9 +33,36 @@ public:
 };
 
 class ShapeObject : public DrawableObject, public TransformableObject {
-
+public:
+    Color color;
+    void setColor(Color color);
+    virtual Point2D getCenter() const = 0;
 };
 
-//
+
+
+class AnimatedObject {
+public:
+    virtual void animate() = 0;
+};
+
+class BitmapObject : public DrawableObject {
+public:
+    vector<BitmapHandler*> bitmaps;
+    int currentBitmap;
+    float x;
+    float y;
+    float scale;
+    void addBitmap(BitmapHandler *bitmap);
+    void setCurrentBitmap(int index);
+    void draw(PrimitiveRenderer &renderer) override;
+};
+
+class SpriteObject : public BitmapObject, public AnimatedObject {
+public:
+    int frameDelay;
+    int frameCounter;
+    void animate() override;
+};
 
 #endif

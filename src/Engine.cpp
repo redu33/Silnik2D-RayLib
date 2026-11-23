@@ -1,8 +1,7 @@
 #include "Engine.h"
-
-#include <complex>
-#include <functional>
 #include <iostream>
+
+#include "Shapes.h"
 
 bool Engine::init(){
     SetTraceLogLevel(7);
@@ -20,6 +19,8 @@ bool Engine::init(){
     }
 
     InitWindow(config.width, config.height, config.title.c_str());
+
+    player.init();
 
     if (!IsWindowReady()) {
         logError("Nie udalo sie zainicjalizowac silnika.");
@@ -90,13 +91,7 @@ bool Engine::isMousePressed(int button){
 
 void Engine::handleInput(){
     if (config.enableKeyboard) {
-        shapesToDraw.clear();
-        if (isKeyDown(KEY_ONE)) shapesToDraw.push_back(Shape::LINE);
-        if (isKeyDown(KEY_TWO)) shapesToDraw.push_back(Shape::RECTANGLE);
-        if (isKeyDown(KEY_THREE)) shapesToDraw.push_back(Shape::CIRCLE);
-        if (isKeyDown(KEY_FOUR)) shapesToDraw.push_back(Shape::ELLIPSE);
-        if (isKeyDown(KEY_FIVE)) shapesToDraw.push_back(Shape::TRIANGLE);
-        if (isKeyDown(KEY_SIX)) shapesToDraw.push_back(Shape::POLYGON);
+
     }
     if (config.enableMouse) {
         if (isMousePressed(MOUSE_BUTTON_LEFT)) {
@@ -107,54 +102,20 @@ void Engine::handleInput(){
 }
 
 void Engine::updateLogic(float deltaTime){
-    // todo
+    player.update(deltaTime);
 }
 
 void Engine::renderScreen(){
     BeginDrawing();
     clnScreen(config.clearColor);
     renderer.clearBuffer(config.clearColor);
-
     DrawFPS(10,10);
 
-    for (Shape shape : shapesToDraw) {
-        switch (shape) {
-            case Shape::LINE:
-                renderer.drawLine(Point2D(300, 200), Point2D(500, 400), RED);
-                break;
-            case Shape::RECTANGLE:
-                renderer.drawRectangle(Point2D(300, 200), 200, 200, GREEN);
-                renderer.boundaryFill(Point2D(401, 296), GREEN, GREEN);
-                break;
-            case Shape::CIRCLE:
-                renderer.drawCircle(Point2D(400, 300), 100, BLUE);
-                renderer.boundaryFill(Point2D(401, 296), BLUE, BLUE);
-                break;
-            case Shape::ELLIPSE:
-                renderer.drawEllipse(Point2D(400, 300), 150, 80, YELLOW);
-                renderer.boundaryFill(Point2D(401, 296), YELLOW, YELLOW);
-                break;
-            case Shape::TRIANGLE:
-                renderer.drawTriangle(Point2D(300, 200), Point2D(500, 200), Point2D(400, 400), ORANGE);
-                renderer.boundaryFill(Point2D(401, 296), ORANGE, ORANGE);
-                break;
-            case Shape::POLYGON:
-                vector<Point2D> wielokat = {
-                Point2D(400, 200),
-                Point2D(500, 270),
-                Point2D(460, 380),
-                Point2D(340, 380),
-                Point2D(300, 270)
-            };
-                renderer.drawPolygon(wielokat, MAGENTA);
-                renderer.boundaryFill(Point2D(401, 296), MAGENTA, MAGENTA);
-                break;
-        }
-    }
+    player.draw(renderer);
+
     EndDrawing();
 
 
-    // dodac klasy z figurami jeszcze i 3 zadanie z 4 instrukcjii
     // opisac w dokumentacji klasy, metody itp. po co sa i co robia
     // sprawozdanie ma byc glownie insturkcja obslugi silnika w zasadzie, takie cos ze jak stworzyc cos za pomoca silnika
     // to znaczy jaki obiekt stworzyc, jakie metody wykorzystac, jakie argumenty przyjmuja itp. i to smao przy rotacji,

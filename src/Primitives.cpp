@@ -1,7 +1,7 @@
 #include "Primitives.h"
-#include "Engine.h"
 #include <math.h>
 #include <stack>
+#include <algorithm>
 
 using namespace std;
 
@@ -45,6 +45,32 @@ void Point2D::scale(const Point2D &origin, float kx, float ky) {
 
     this->x = x1 * kx + (1.0f - kx) * x0;
     this->y = y1 * ky + (1.0f - ky) * y0;
+}
+
+
+
+LineSegment::LineSegment(Point2D start, Point2D end) {
+    this->start = start;
+    this->end = end;
+}
+Point2D LineSegment::getStart() const { return start; }
+Point2D LineSegment::getEnd() const { return end; }
+void LineSegment::setStart(Point2D start) { this->start = start; }
+void LineSegment::setEnd(Point2D end) { this->end = end; }
+void LineSegment::draw(PrimitiveRenderer &renderer, Color color){
+    renderer.drawLine(this->start, this->end, color);
+}
+void LineSegment::translate(float tx, float ty) {
+    this->start.translate(tx, ty);
+    this->end.translate(tx, ty);
+}
+void LineSegment::rotate(const Point2D& origin, float angleRad) {
+    this->start.rotate(origin, angleRad);
+    this->end.rotate(origin, angleRad);
+}
+void LineSegment::scale(const Point2D& origin, float kx, float ky) {
+    this->start.scale(origin, kx, ky);
+    this->end.scale(origin, kx, ky);
 }
 
 
@@ -200,30 +226,4 @@ void PrimitiveRenderer::boundaryFill(Point2D seed, Color fillColor, Color bounda
         dsd.push(Point2D((float)(x - 1), (float)y));
         dsd.push(Point2D((float)(x + 1), (float)y));
     }
-}
-
-//
-
-LineSegment::LineSegment(Point2D start, Point2D end) {
-    this->start = start;
-    this->end = end;
-}
-Point2D LineSegment::getStart() const { return start; }
-Point2D LineSegment::getEnd() const { return end; }
-void LineSegment::setStart(Point2D start) { this->start = start; }
-void LineSegment::setEnd(Point2D end) { this->end = end; }
-void LineSegment::draw(PrimitiveRenderer &renderer, Color color){
-    renderer.drawLine(this->start, this->end, color);
-}
-void LineSegment::translate(float tx, float ty) {
-    this->start.translate(tx, ty);
-    this->end.translate(tx, ty);
-}
-void LineSegment::rotate(const Point2D& origin, float angleRad) {
-    this->start.rotate(origin, angleRad);
-    this->end.rotate(origin, angleRad);
-}
-void LineSegment::scale(const Point2D& origin, float kx, float ky) {
-    this->start.scale(origin, kx, ky);
-    this->end.scale(origin, kx, ky);
 }
