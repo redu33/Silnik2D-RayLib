@@ -1,5 +1,5 @@
 #include "Shapes.h"
-#include <math.h>
+#include <cmath>
 
 TriangleShape::TriangleShape(Point2D p1, Point2D p2, Point2D p3, Color color) {
     this->p1 = p1;
@@ -35,10 +35,10 @@ void TriangleShape::scale(const Point2D &origin, float kx, float ky) {
 
 
 RectangleShape::RectangleShape(Point2D p, float width, float height, Color color) {
-    this->p1 = p;
-    this->p2 = Point2D(p.getX() + width, p.getY());
-    this->p3 = Point2D(p.getX() + width, p.getY() + height);
-    this->p4 = Point2D(p.getX(), p.getY() + height);
+    p1 = p;
+    p2 = Point2D(p.getX() + width, p.getY());
+    p3 = Point2D(p.getX() + width, p.getY() + height);
+    p4 = Point2D(p.getX(), p.getY() + height);
     this->color = color;
 }
 Point2D RectangleShape::getCenter() const {
@@ -48,8 +48,8 @@ Point2D RectangleShape::getCenter() const {
     );
 }
 void RectangleShape::draw(PrimitiveRenderer &renderer) {
-    vector<Point2D> punkty = {p1, p2, p3, p4};
-    renderer.drawPolygon(punkty, color);
+    vector<Point2D> points = {p1, p2, p3, p4};
+    renderer.drawPolygon(points, color);
 }
 void RectangleShape::translate(float tx, float ty) {
     p1.translate(tx, ty);

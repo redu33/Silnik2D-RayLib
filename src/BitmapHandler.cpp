@@ -3,25 +3,25 @@
 using namespace std;
 
 BitmapHandler::BitmapHandler() {
-    this->texture = {0};
+    texture = {0};
 }
 
 void BitmapHandler::loadFromFile(string filename) {
-    this->texture = LoadTexture(filename.c_str());
+    texture = LoadTexture(filename.c_str());
 }
 
 void BitmapHandler::destroy() {
-    UnloadTexture(this->texture);
+    UnloadTexture(texture);
 }
 
 void BitmapHandler::draw(float x, float y, float scale) {
-    DrawTextureEx(this->texture, {x, y}, 0.0f, scale, WHITE);
+    DrawTextureEx(texture, {x, y}, 0.0f, scale, WHITE);
 }
 
 int BitmapHandler::getWidth() const {
-    return this->texture.width;
+    return texture.width;
 }
 
 int BitmapHandler::getHeight() const {
-    return this->texture.height;
+    return texture.height;
 }

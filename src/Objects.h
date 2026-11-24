@@ -1,7 +1,7 @@
-#ifndef SILNK2D_GAMEOBJECT_H
-#define SILNK2D_GAMEOBJECT_H
+#ifndef SILNK2D_OBJECTS_H
+#define SILNK2D_OBJECTS_H
 
-#include "raylib.h"
+#include <raylib.h>
 #include <vector>
 #include "BitmapHandler.h"
 
@@ -43,7 +43,7 @@ public:
 
 class AnimatedObject {
 public:
-    virtual void animate() = 0;
+    virtual void animate(float dt) = 0;
 };
 
 class BitmapObject : public DrawableObject {
@@ -60,9 +60,9 @@ public:
 
 class SpriteObject : public BitmapObject, public AnimatedObject {
 public:
-    int frameDelay;
-    int frameCounter;
-    void animate() override;
+    float frameTime;
+    float frameTimer;
+    void animate(float dt) override;
 };
 
 #endif

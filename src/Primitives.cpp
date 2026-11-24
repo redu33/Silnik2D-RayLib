@@ -1,13 +1,13 @@
 #include "Primitives.h"
-#include <math.h>
+#include <cmath>
 #include <stack>
 #include <algorithm>
 
 using namespace std;
 
 Point2D::Point2D(){
-    this->x = 0.0f;
-    this->y = 0.0f;
+    x = 0.0f;
+    y = 0.0f;
 }
 Point2D::Point2D(float x, float y) {
     this->x = x;
@@ -25,26 +25,26 @@ void Point2D::draw(PrimitiveRenderer &renderer, Color color) {
     renderer.drawPoint(*this, color);
 }
 void Point2D::translate(float tx, float ty) {
-    this->x += tx;
-    this->y += ty;
+    x += tx;
+    y += ty;
 }
 void Point2D::rotate(const Point2D &origin, float angleRad) {
-    float x1 = this->x;
-    float y1 = this->y;
+    float x1 = x;
+    float y1 = y;
     float x0 = origin.getX();
     float y0 = origin.getY();
 
-    this->x = x0 + (x1 - x0) * cos(angleRad) - (y1 - y0) * sin(angleRad);
-    this->y = y0 + (x1 - x0) * sin(angleRad) + (y1 - y0) * cos(angleRad);
+    x = x0 + (x1 - x0) * cos(angleRad) - (y1 - y0) * sin(angleRad);
+    y = y0 + (x1 - x0) * sin(angleRad) + (y1 - y0) * cos(angleRad);
 }
 void Point2D::scale(const Point2D &origin, float kx, float ky) {
-    float x1 = this->x;
-    float y1 = this->y;
+    float x1 = x;
+    float y1 = y;
     float x0 = origin.getX();
     float y0 = origin.getY();
 
-    this->x = x1 * kx + (1.0f - kx) * x0;
-    this->y = y1 * ky + (1.0f - ky) * y0;
+    x = x1 * kx + (1.0f - kx) * x0;
+    y = y1 * ky + (1.0f - ky) * y0;
 }
 
 
@@ -58,19 +58,19 @@ Point2D LineSegment::getEnd() const { return end; }
 void LineSegment::setStart(Point2D start) { this->start = start; }
 void LineSegment::setEnd(Point2D end) { this->end = end; }
 void LineSegment::draw(PrimitiveRenderer &renderer, Color color){
-    renderer.drawLine(this->start, this->end, color);
+    renderer.drawLine(start, end, color);
 }
 void LineSegment::translate(float tx, float ty) {
-    this->start.translate(tx, ty);
-    this->end.translate(tx, ty);
+    start.translate(tx, ty);
+    end.translate(tx, ty);
 }
 void LineSegment::rotate(const Point2D& origin, float angleRad) {
-    this->start.rotate(origin, angleRad);
-    this->end.rotate(origin, angleRad);
+    start.rotate(origin, angleRad);
+    end.rotate(origin, angleRad);
 }
 void LineSegment::scale(const Point2D& origin, float kx, float ky) {
-    this->start.scale(origin, kx, ky);
-    this->end.scale(origin, kx, ky);
+    start.scale(origin, kx, ky);
+    end.scale(origin, kx, ky);
 }
 
 
@@ -85,13 +85,13 @@ void PrimitiveRenderer::drawPoint(Point2D p, Color color) {
     }
 }
 void PrimitiveRenderer::drawRectangle(Point2D p, int width, int height, Color color) {
-    vector<Point2D> punkty = {
+    vector<Point2D> points = {
         Point2D(p.getX(), p.getY()),
         Point2D(p.getX() + width, p.getY()),
         Point2D(p.getX() + width, p.getY() + height),
         Point2D(p.getX(), p.getY() + height)
     };
-    drawPolyline(punkty, color, true);
+    drawPolyline(points, color, true);
 }
 void PrimitiveRenderer::drawCircle(Point2D p, int R, Color color) {
     int x0 = (int)round(p.getX());
@@ -124,8 +124,8 @@ void PrimitiveRenderer::drawEllipse(Point2D p, int rx, int ry, Color color) {
     }
 }
 void PrimitiveRenderer::drawTriangle(Point2D p1, Point2D p2, Point2D p3, Color color) {
-    vector<Point2D> punkty = {p1, p2, p3};
-    drawPolyline(punkty, color, true);
+    vector<Point2D> points = {p1, p2, p3};
+    drawPolyline(points, color, true);
 }
 void PrimitiveRenderer::drawPolygon(vector<Point2D> &points, Color color){
     if (points.size() < 3) {
@@ -209,11 +209,11 @@ bool PrimitiveRenderer::areColorsEqual(Color c1, Color c2) {
     return (c1.r == c2.r && c1.g == c2.g && c1.b == c2.b && c1.a == c2.a);
 }
 void PrimitiveRenderer::boundaryFill(Point2D seed, Color fillColor, Color boundaryColor) {
-    std::stack<Point2D> dsd;
-    dsd.push(seed);
-    while (!dsd.empty()) {
-        Point2D p = dsd.top();
-        dsd.pop();
+    stack<Point2D> pixels;
+    pixels.push(seed);
+    while (!pixels.empty()) {
+        Point2D p = pixels.top();
+        pixels.pop();
         int x = (int)round(p.getX());
         int y = (int)round(p.getY());
         Color currentColor = getPixelColor(x, y);
@@ -221,9 +221,9 @@ void PrimitiveRenderer::boundaryFill(Point2D seed, Color fillColor, Color bounda
             continue;
         }
         drawPoint(p, fillColor);
-        dsd.push(Point2D((float)x, (float)(y - 1)));
-        dsd.push(Point2D((float)x, (float)(y + 1)));
-        dsd.push(Point2D((float)(x - 1), (float)y));
-        dsd.push(Point2D((float)(x + 1), (float)y));
+        pixels.push(Point2D((float)x, (float)(y - 1)));
+        pixels.push(Point2D((float)x, (float)(y + 1)));
+        pixels.push(Point2D((float)(x - 1), (float)y));
+        pixels.push(Point2D((float)(x + 1), (float)y));
     }
 }

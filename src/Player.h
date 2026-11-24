@@ -1,7 +1,7 @@
 #ifndef SILNK2D_PLAYER_H
 #define SILNK2D_PLAYER_H
 
-#include "Primitives.h"
+#include "Objects.h"
 
 class Player : public SpriteObject, public UpdateableObject {
 private:
@@ -12,6 +12,8 @@ private:
 public:
     Player(float x, float y, float speed, float scale);
     ~Player();
+    float dx;
+    float dy;
     void init();
     void update(float dt) override;
 };

@@ -1,8 +1,6 @@
 #include "Engine.h"
 #include <iostream>
 
-#include "Shapes.h"
-
 bool Engine::init(){
     SetTraceLogLevel(7);
 
@@ -20,8 +18,6 @@ bool Engine::init(){
 
     InitWindow(config.width, config.height, config.title.c_str());
 
-    player.init();
-
     if (!IsWindowReady()) {
         logError("Nie udalo sie zainicjalizowac silnika.");
         return false;
@@ -36,6 +32,7 @@ bool Engine::init(){
     }
 
     renderer.initBuffer(config.width, config.height);
+    player.init();
     logInfo("Silnik zostal poprawnie zainicjalizowany.");
     return true;
 }
@@ -91,7 +88,20 @@ bool Engine::isMousePressed(int button){
 
 void Engine::handleInput(){
     if (config.enableKeyboard) {
-
+        player.dx = 0.0f;
+        player.dy = 0.0f;
+        if (IsKeyDown(KEY_W) || IsKeyDown(KEY_UP)) {
+            player.dy -= 1.0f;
+        }
+        if (IsKeyDown(KEY_S) || IsKeyDown(KEY_DOWN)) {
+            player.dy += 1.0f;
+        }
+        if (IsKeyDown(KEY_A) || IsKeyDown(KEY_LEFT)) {
+            player.dx -= 1.0f;
+        }
+        if (IsKeyDown(KEY_D) || IsKeyDown(KEY_RIGHT)) {
+            player.dx += 1.0f;
+        }
     }
     if (config.enableMouse) {
         if (isMousePressed(MOUSE_BUTTON_LEFT)) {
