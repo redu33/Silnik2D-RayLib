@@ -17,7 +17,7 @@ struct Config {
     /** @brief Tytuł wyświetlany na pasku okna. */
     string title = "Silnik 2D";
     /** @brief Określa, czy aplikacja ma działać w trybie pełnoekranowym. */
-    bool fullscreen = true;
+    bool fullscreen = false;
     /** @brief Docelowa liczba klatek na sekundę. */
     int FPS = 60;
     /** @brief Włącza lub wyłącza obsługę klawiatury. */
