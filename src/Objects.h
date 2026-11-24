@@ -41,7 +41,7 @@ public:
 
 
 
-class AnimatedObject {
+class AnimatedObject : virtual public GameObject {
 public:
     virtual void animate(float dt) = 0;
 };
