@@ -127,13 +127,9 @@ void Engine::renderScreen(){
     clnScreen(config.clearColor);
     renderer.clearBuffer(config.clearColor);
     DrawFPS(10,10);
-
-    RectangleShape kwadrat = RectangleShape(Point2D(100, 100), 200, 200, WHITE);
-    kwadrat.rotate(kwadrat.getCenter(), 45.0f);
-    kwadrat.draw(renderer);
-    renderer.boundaryFill(kwadrat.getCenter(), WHITE, WHITE);
-
     player.draw(renderer);
+
+
 
     EndDrawing();
 
