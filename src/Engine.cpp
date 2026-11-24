@@ -1,6 +1,8 @@
 #include "Engine.h"
 #include <iostream>
 
+#include "Shapes.h"
+
 bool Engine::init(){
     SetTraceLogLevel(7);
 
@@ -121,8 +123,11 @@ void Engine::renderScreen(){
     renderer.clearBuffer(config.clearColor);
     DrawFPS(10,10);
 
-    player.draw(renderer);
+    RectangleShape kwadrat = RectangleShape(Point2D(100, 100), 200, 200, WHITE);
+    kwadrat.rotate(kwadrat.getCenter(), 0.73f);
+    kwadrat.draw(renderer);
 
+    player.draw(renderer);
     EndDrawing();
 
 
@@ -130,4 +135,5 @@ void Engine::renderScreen(){
     // sprawozdanie ma byc glownie insturkcja obslugi silnika w zasadzie, takie cos ze jak stworzyc cos za pomoca silnika
     // to znaczy jaki obiekt stworzyc, jakie metody wykorzystac, jakie argumenty przyjmuja itp. i to smao przy rotacji,
     // wypelnianiu i cos o bitmapach, czyli po prostu jak sie ten silnik obsluguje jakby nie patrzec
+    // dlaczego kurde obrot jest w radianach
 }
