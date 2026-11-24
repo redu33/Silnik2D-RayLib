@@ -11,9 +11,9 @@ struct SolidBox {
     RectangleShape shape;
     float x, y, w, h;
 
-    SolidBox(float x, float y, float w, float h, Color color) : shape(Point2D(x, y), w, h, color) {
-        this->x = x;
-        this->y = y;
+    SolidBox(Point2D pos, float w, float h, Color color) : shape(pos, w, h, color) {
+        this->x = pos.getX();
+        this->y = pos.getY();
         this->w = w;
         this->h = h;
     }
@@ -21,10 +21,17 @@ struct SolidBox {
 
 struct Diamond {
     PolygonShape shape;
-    float radius;
+    float size;
     bool collected = false;
 
-    Diamond(const vector<Point2D> &pts, float r, Color color) : shape(pts, color), radius(r), collected(false) {}
+    Diamond(Point2D center, float size, Color color) : shape({
+            Point2D(center.getX(), center.getY() - size),
+            Point2D(center.getX() + size, center.getY()),
+            Point2D(center.getX(), center.getY() + size),
+            Point2D(center.getX() - size, center.getY())}, color) {
+        this->size = size;
+        collected = false;
+    }
 };
 
 class Game {
@@ -35,7 +42,7 @@ private:
 
     vector<SolidBox> walls;
     vector<SolidBox> obstacles;
-    SolidBox door = SolidBox(0.0f, 0.0f, 10.0f, 10.0f, MAROON);
+    SolidBox door = SolidBox(Point2D(0.0f, 0.0f), 10.0f, 10.0f, RED);
     vector<Diamond> diamonds;
 
     bool doorOpen = false;
@@ -43,7 +50,8 @@ private:
 
     float getPlayerWidth() const;
     float getPlayerHeight() const;
-    bool collidesWithBox(float px, float py, float pw, float ph, const SolidBox &box) const;
+    bool collidesWithObject(float px, float py, float pw, float ph, const SolidBox &box) const;
+    bool checkCollision(float testX, float testY) const;
 
 public:
     bool init(int width, int height);

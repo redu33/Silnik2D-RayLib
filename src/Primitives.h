@@ -72,5 +72,4 @@ public:
     void boundaryFill(Point2D point, Color fillColor, Color boundaryColor);
 };
 
-//
 #endif

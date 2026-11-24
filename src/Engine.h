@@ -8,8 +8,6 @@
 using namespace std;
 
 struct Config {
-    //int width = 1024;
-    //int height = 768;
     int width = 1280;
     int height = 720;
     string title = "Silnik 2D";
