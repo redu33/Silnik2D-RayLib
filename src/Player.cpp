@@ -60,3 +60,13 @@ void Player::destroy(){
     frame1.destroy();
     frame2.destroy();
 }
+
+int Player::getHeight() const{
+    return frame1.getHeight();
+}
+
+int Player::getWidth() const{
+    return frame1.getWidth();
+}
+
+

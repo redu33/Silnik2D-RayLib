@@ -19,6 +19,8 @@ add_executable(Silnik2D
         src/Player.h
         src/BitmapHandler.cpp
         src/BitmapHandler.h
+        src/Game.cpp
+        src/Game.h
 )
 
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O2")

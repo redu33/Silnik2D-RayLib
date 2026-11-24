@@ -1,6 +1,5 @@
 #include "Engine.h"
 #include <iostream>
-
 #include "Shapes.h"
 
 bool Engine::init(){
@@ -39,10 +38,11 @@ bool Engine::init(){
         logError("Nie udalo sie zainicjalizowac PixelBuffer().");
     }
 
-    if (player.init()) {
-        logInfo("Poprawnie wczytano tekstury gracza.");
+    if (game.init(config.width, config.height)) {
+        logInfo("Poprawnie zainicjalizowano gre.");
     } else {
-        logError("Nie udalo sie wczytac tekstur gracza.");
+        logError("Nie udalo sie zainicjalizowac gry.");
+        return false;
     }
 
     logInfo("Silnik zostal poprawnie zainicjalizowany.");
@@ -65,7 +65,7 @@ void Engine::shutdown(){
         return;
     }
     logInfo("Zamykanie, zwalnianie zasobow.");
-    player.destroy();
+    game.destroy();
     CloseWindow();
     logInfo("Poprawnie zamknieto.");
 }
@@ -95,20 +95,7 @@ bool Engine::isMouseDown(int button){
 
 void Engine::handleInput(){
     if (config.enableKeyboard) {
-        player.dx = 0.0f;
-        player.dy = 0.0f;
-        if (isKeyDown(KEY_W) || isKeyDown(KEY_UP)) {
-            player.dy -= 1.0f;
-        }
-        if (isKeyDown(KEY_S) || isKeyDown(KEY_DOWN)) {
-            player.dy += 1.0f;
-        }
-        if (isKeyDown(KEY_A) || isKeyDown(KEY_LEFT)) {
-            player.dx -= 1.0f;
-        }
-        if (isKeyDown(KEY_D) || isKeyDown(KEY_RIGHT)) {
-            player.dx += 1.0f;
-        }
+        game.handleInput(*this);
     }
     if (config.enableMouse) {
         if (isMouseDown(MOUSE_BUTTON_LEFT)) {
@@ -119,20 +106,16 @@ void Engine::handleInput(){
 }
 
 void Engine::updateLogic(float deltaTime){
-    player.update(deltaTime);
+    game.update(deltaTime);
 }
 
 void Engine::renderScreen(){
     BeginDrawing();
     clnScreen(config.clearColor);
     renderer.clearBuffer(config.clearColor);
-    DrawFPS(10,10);
-
-    player.draw(renderer);
+    game.draw(renderer);
 
     EndDrawing();
-
-
     // opisac w dokumentacji klasy, metody itp. po co sa i co robia
     // sprawozdanie ma byc glownie insturkcja obslugi silnika w zasadzie, takie cos ze jak stworzyc cos za pomoca silnika
     // to znaczy jaki obiekt stworzyc, jakie metody wykorzystac, jakie argumenty przyjmuja itp. i to smao przy rotacji,

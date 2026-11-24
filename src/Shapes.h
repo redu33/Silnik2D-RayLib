@@ -8,6 +8,7 @@ private:
     Point2D p1, p2, p3;
 
 public:
+    TriangleShape() = default;
     TriangleShape(Point2D p1, Point2D p2, Point2D p3, Color color);
 
     Point2D getCenter() const override;
@@ -22,6 +23,7 @@ private:
     Point2D p1, p2, p3, p4;
 
 public:
+    RectangleShape() = default;
     RectangleShape(Point2D p, float width, float height, Color color);
 
     Point2D getCenter() const override;

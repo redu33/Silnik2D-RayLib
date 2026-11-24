@@ -17,6 +17,8 @@ public:
     bool init();
     void update(float dt) override;
     void destroy();
+    int getWidth() const;
+    int getHeight() const;
 };
 
 #endif
