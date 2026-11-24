@@ -127,9 +127,8 @@ void Engine::renderScreen(){
     clnScreen(config.clearColor);
     renderer.clearBuffer(config.clearColor);
     DrawFPS(10,10);
+
     player.draw(renderer);
-
-
 
     EndDrawing();
 
