@@ -52,8 +52,8 @@ public:
 
 class PrimitiveRenderer {
 private:
-    int screenWidth;
-    int screenHeight;
+    int screenWidth = 0;
+    int screenHeight = 0;
     vector<vector<Color>> pixelBuffer;
 public:
     void drawPoint(Point2D p, Color color);

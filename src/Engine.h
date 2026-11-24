@@ -42,6 +42,4 @@ public:
     bool isMouseDown(int button);
 };
 
-//
-
 #endif
