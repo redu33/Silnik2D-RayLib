@@ -14,7 +14,7 @@ public:
     ~Player();
     float dx;
     float dy;
-    void init();
+    bool init();
     void update(float dt) override;
 };
 

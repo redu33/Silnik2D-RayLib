@@ -19,12 +19,17 @@ Player::~Player() {
     frame2.destroy();
 }
 
-void Player::init() {
-    frame1.loadFromFile("player1.png");
-    frame2.loadFromFile("player2.png");
+bool Player::init() {
+    frame1.loadFromFile("textures/player1.png");
+    frame2.loadFromFile("textures/player2.png");
+
+    if (frame1.getWidth() <= 0 || frame2.getWidth() <= 0) {
+        return false;
+    }
 
     addBitmap(&frame1);
     addBitmap(&frame2);
+    return true;
 }
 
 void Player::update(float dt) {

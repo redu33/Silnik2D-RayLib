@@ -32,9 +32,7 @@ public:
     void logInfo(const string &logMessage);
 
     bool isKeyDown(int key);
-    bool isKeyPressed(int key);
     bool isMouseDown(int button);
-    bool isMousePressed(int button);
 
 private:
     PrimitiveRenderer renderer;

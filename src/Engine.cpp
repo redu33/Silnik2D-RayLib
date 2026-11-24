@@ -1,8 +1,6 @@
 #include "Engine.h"
 #include <iostream>
 
-#include "Shapes.h"
-
 bool Engine::init(){
     SetTraceLogLevel(7);
 
@@ -33,8 +31,18 @@ bool Engine::init(){
         return false;
     }
 
-    renderer.initBuffer(config.width, config.height);
-    player.init();
+    if (renderer.initBuffer(config.width, config.height)) {
+        logInfo("Bufor pikseli zainicjalizowany poprawnie.");
+    } else {
+        logError("Nie udalo sie zainicjalizowac PixelBuffer().");
+    }
+
+    if (player.init()) {
+        logInfo("Poprawnie wczytano tekstury gracza.");
+    } else {
+        logError("Nie udalo sie wczytac tekstur gracza.");
+    }
+
     logInfo("Silnik zostal poprawnie zainicjalizowany.");
     return true;
 }
@@ -78,35 +86,29 @@ void Engine::logInfo(const string &logMessage){
 bool Engine::isKeyDown(int key){
     return (config.enableKeyboard && IsKeyDown(key));
 }
-bool Engine::isKeyPressed(int key){
-    return (config.enableKeyboard && IsKeyPressed(key));
-}
 bool Engine::isMouseDown(int button){
     return (config.enableMouse && IsMouseButtonDown(button));
-}
-bool Engine::isMousePressed(int button){
-    return (config.enableMouse && IsMouseButtonPressed(button));
 }
 
 void Engine::handleInput(){
     if (config.enableKeyboard) {
         player.dx = 0.0f;
         player.dy = 0.0f;
-        if (IsKeyDown(KEY_W) || IsKeyDown(KEY_UP)) {
+        if (isKeyDown(KEY_W) || isKeyDown(KEY_UP)) {
             player.dy -= 1.0f;
         }
-        if (IsKeyDown(KEY_S) || IsKeyDown(KEY_DOWN)) {
+        if (isKeyDown(KEY_S) || isKeyDown(KEY_DOWN)) {
             player.dy += 1.0f;
         }
-        if (IsKeyDown(KEY_A) || IsKeyDown(KEY_LEFT)) {
+        if (isKeyDown(KEY_A) || isKeyDown(KEY_LEFT)) {
             player.dx -= 1.0f;
         }
-        if (IsKeyDown(KEY_D) || IsKeyDown(KEY_RIGHT)) {
+        if (isKeyDown(KEY_D) || isKeyDown(KEY_RIGHT)) {
             player.dx += 1.0f;
         }
     }
     if (config.enableMouse) {
-        if (isMousePressed(MOUSE_BUTTON_LEFT)) {
+        if (isMouseDown(MOUSE_BUTTON_LEFT)) {
             Vector2 pos = GetMousePosition();
             logInfo(to_string((int)pos.x) + ", " + to_string((int)pos.y));
         }
@@ -123,17 +125,8 @@ void Engine::renderScreen(){
     renderer.clearBuffer(config.clearColor);
     DrawFPS(10,10);
 
-    RectangleShape kwadrat = RectangleShape(Point2D(100, 100), 200, 200, WHITE);
-    kwadrat.rotate(kwadrat.getCenter(), 0.73f);
-    kwadrat.scale(kwadrat.getCenter(), 0.5, 0.5);
-    kwadrat.translate(400,400);
-    kwadrat.draw(renderer);
-    renderer.boundaryFill(kwadrat.getCenter(), WHITE, WHITE);
-    RectangleShape kwadrat2 = RectangleShape(Point2D(300,300), 100, 100, RED);
-    kwadrat2.draw(renderer);
-    renderer.boundaryFill(kwadrat2.getCenter(), RED, RED);
-
     player.draw(renderer);
+
     EndDrawing();
 
 
@@ -141,5 +134,4 @@ void Engine::renderScreen(){
     // sprawozdanie ma byc glownie insturkcja obslugi silnika w zasadzie, takie cos ze jak stworzyc cos za pomoca silnika
     // to znaczy jaki obiekt stworzyc, jakie metody wykorzystac, jakie argumenty przyjmuja itp. i to smao przy rotacji,
     // wypelnianiu i cos o bitmapach, czyli po prostu jak sie ten silnik obsluguje jakby nie patrzec
-    // dlaczego kurde obrot jest w radianach
 }

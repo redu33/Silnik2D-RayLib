@@ -187,10 +187,14 @@ void PrimitiveRenderer::drawPolyline(vector<Point2D> &points, Color color, bool 
         drawLine(points[points.size() - 1], points[0], color);
     }
 }
-void PrimitiveRenderer::initBuffer(int width, int height) {
+bool PrimitiveRenderer::initBuffer(int width, int height) {
     screenWidth = width;
     screenHeight = height;
+    if (width <= 0 || height <= 0) {
+        return false;
+    }
     pixelBuffer.resize(screenWidth, vector<Color>(screenHeight, BLACK));
+    return true;
 }
 Color PrimitiveRenderer::getPixelColor(int x, int y) {
     if (x >= 0 && x < screenWidth && y >= 0 && y < screenHeight) {

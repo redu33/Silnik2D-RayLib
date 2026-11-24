@@ -65,7 +65,7 @@ public:
     void drawLine(Point2D p1, Point2D p2, Color color);
     void drawPolyline(vector<Point2D> &points, Color color, bool isClosed);
 
-    void initBuffer(int width, int height);
+    bool initBuffer(int width, int height);
     Color getPixelColor(int x, int y);
     void clearBuffer(Color clearColor);
     bool areColorsEqual(Color c1, Color c2);
