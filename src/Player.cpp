@@ -15,8 +15,7 @@ Player::Player(float x, float y, float speed, float scale) {
 }
 
 Player::~Player() {
-    frame1.destroy();
-    frame2.destroy();
+    destroy();
 }
 
 bool Player::init() {
@@ -55,4 +54,9 @@ void Player::update(float dt) {
         setCurrentBitmap(0);
         frameTimer = 0.0f;
     }
+}
+
+void Player::destroy(){
+    frame1.destroy();
+    frame2.destroy();
 }

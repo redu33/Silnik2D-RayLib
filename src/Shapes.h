@@ -13,7 +13,7 @@ public:
     Point2D getCenter() const override;
     void draw(PrimitiveRenderer &renderer) override;
     void translate(float tx, float ty) override;
-    void rotate(const Point2D &origin, float angleRad) override;
+    void rotate(const Point2D &origin, float angle) override;
     void scale(const Point2D &origin, float kx, float ky) override;
 };
 
@@ -27,7 +27,7 @@ public:
     Point2D getCenter() const override;
     void draw(PrimitiveRenderer &renderer) override;
     void translate(float tx, float ty) override;
-    void rotate(const Point2D &origin, float angleRad) override;
+    void rotate(const Point2D &origin, float angle) override;
     void scale(const Point2D &origin, float kx, float ky) override;
 };
 
@@ -42,7 +42,7 @@ public:
     Point2D getCenter() const override;
     void draw(PrimitiveRenderer &renderer) override;
     void translate(float tx, float ty) override;
-    void rotate(const Point2D &origin, float angleRad) override;
+    void rotate(const Point2D &origin, float angle) override;
     void scale(const Point2D &origin, float kx, float ky) override;
 };
 
@@ -57,7 +57,7 @@ public:
     Point2D getCenter() const override;
     void draw(PrimitiveRenderer &renderer) override;
     void translate(float tx, float ty) override;
-    void rotate(const Point2D &origin, float angleRad) override;
+    void rotate(const Point2D &origin, float angle) override;
     void scale(const Point2D &origin, float kx, float ky) override;
 };
 
@@ -71,7 +71,7 @@ public:
     Point2D getCenter() const override;
     void draw(PrimitiveRenderer &renderer) override;
     void translate(float tx, float ty) override;
-    void rotate(const Point2D &origin, float angleRad) override;
+    void rotate(const Point2D &origin, float angle) override;
     void scale(const Point2D &origin, float kx, float ky) override;
 };
 
@@ -86,7 +86,7 @@ public:
     Point2D getCenter() const override;
     void draw(PrimitiveRenderer &renderer) override;
     void translate(float tx, float ty) override;
-    void rotate(const Point2D &origin, float angleRad) override;
+    void rotate(const Point2D &origin, float angle) override;
     void scale(const Point2D &origin, float kx, float ky) override;
 };
 

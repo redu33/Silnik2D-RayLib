@@ -28,14 +28,15 @@ void Point2D::translate(float tx, float ty) {
     x += tx;
     y += ty;
 }
-void Point2D::rotate(const Point2D &origin, float angleRad) {
+void Point2D::rotate(const Point2D &origin, float angle) {
+    float rad = angle * DEG2RAD;
     float x1 = x;
     float y1 = y;
     float x0 = origin.getX();
     float y0 = origin.getY();
 
-    x = x0 + (x1 - x0) * cos(angleRad) - (y1 - y0) * sin(angleRad);
-    y = y0 + (x1 - x0) * sin(angleRad) + (y1 - y0) * cos(angleRad);
+    x = x0 + (x1 - x0) * cos(rad) - (y1 - y0) * sin(rad);
+    y = y0 + (x1 - x0) * sin(rad) + (y1 - y0) * cos(rad);
 }
 void Point2D::scale(const Point2D &origin, float kx, float ky) {
     float x1 = x;
@@ -64,9 +65,9 @@ void LineSegment::translate(float tx, float ty) {
     start.translate(tx, ty);
     end.translate(tx, ty);
 }
-void LineSegment::rotate(const Point2D& origin, float angleRad) {
-    start.rotate(origin, angleRad);
-    end.rotate(origin, angleRad);
+void LineSegment::rotate(const Point2D& origin, float angle) {
+    start.rotate(origin, angle);
+    end.rotate(origin, angle);
 }
 void LineSegment::scale(const Point2D& origin, float kx, float ky) {
     start.scale(origin, kx, ky);
@@ -212,14 +213,17 @@ void PrimitiveRenderer::clearBuffer(Color clearColor) {
 bool PrimitiveRenderer::areColorsEqual(Color c1, Color c2) {
     return (c1.r == c2.r && c1.g == c2.g && c1.b == c2.b && c1.a == c2.a);
 }
-void PrimitiveRenderer::boundaryFill(Point2D seed, Color fillColor, Color boundaryColor) {
+void PrimitiveRenderer::boundaryFill(Point2D point, Color fillColor, Color boundaryColor) {
     stack<Point2D> pixels;
-    pixels.push(seed);
+    pixels.push(point);
     while (!pixels.empty()) {
         Point2D p = pixels.top();
         pixels.pop();
         int x = (int)round(p.getX());
         int y = (int)round(p.getY());
+        if (x < 0 || x >= screenWidth || y < 0 || y >= screenHeight) {
+            continue;
+        }
         Color currentColor = getPixelColor(x, y);
         if (areColorsEqual(currentColor, fillColor) || areColorsEqual(currentColor, boundaryColor)) {
             continue;

@@ -16,6 +16,7 @@ public:
     float dy;
     bool init();
     void update(float dt) override;
+    void destroy();
 };
 
 #endif

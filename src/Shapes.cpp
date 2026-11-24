@@ -21,10 +21,10 @@ void TriangleShape::translate(float tx, float ty) {
     p2.translate(tx, ty);
     p3.translate(tx, ty);
 }
-void TriangleShape::rotate(const Point2D &origin, float angleRad) {
-    p1.rotate(origin, angleRad);
-    p2.rotate(origin, angleRad);
-    p3.rotate(origin, angleRad);
+void TriangleShape::rotate(const Point2D &origin, float angle) {
+    p1.rotate(origin, angle);
+    p2.rotate(origin, angle);
+    p3.rotate(origin, angle);
 }
 void TriangleShape::scale(const Point2D &origin, float kx, float ky) {
     p1.scale(origin, kx, ky);
@@ -57,11 +57,11 @@ void RectangleShape::translate(float tx, float ty) {
     p3.translate(tx, ty);
     p4.translate(tx, ty);
 }
-void RectangleShape::rotate(const Point2D &origin, float angleRad) {
-    p1.rotate(origin, angleRad);
-    p2.rotate(origin, angleRad);
-    p3.rotate(origin, angleRad);
-    p4.rotate(origin, angleRad);
+void RectangleShape::rotate(const Point2D &origin, float angle) {
+    p1.rotate(origin, angle);
+    p2.rotate(origin, angle);
+    p3.rotate(origin, angle);
+    p4.rotate(origin, angle);
 }
 void RectangleShape::scale(const Point2D &origin, float kx, float ky) {
     p1.scale(origin, kx, ky);
@@ -86,8 +86,8 @@ void CircleShape::draw(PrimitiveRenderer &renderer) {
 void CircleShape::translate(float tx, float ty) {
     center.translate(tx, ty);
 }
-void CircleShape::rotate(const Point2D &origin, float angleRad){
-    center.rotate(origin, angleRad);
+void CircleShape::rotate(const Point2D &origin, float angle){
+    center.rotate(origin, angle);
 }
 void CircleShape::scale(const Point2D &origin, float kx, float ky) {
     center.scale(origin, kx, ky);
@@ -111,8 +111,8 @@ void EllipseShape::draw(PrimitiveRenderer &renderer) {
 void EllipseShape::translate(float tx, float ty) {
     center.translate(tx, ty);
 }
-void EllipseShape::rotate(const Point2D &origin, float angleRad) {
-    center.rotate(origin, angleRad);
+void EllipseShape::rotate(const Point2D &origin, float angle) {
+    center.rotate(origin, angle);
 }
 void EllipseShape::scale(const Point2D &origin, float kx, float ky) {
     center.scale(origin, kx, ky);
@@ -143,9 +143,9 @@ void PolygonShape::translate(float tx, float ty) {
         points[i].translate(tx, ty);
     }
 }
-void PolygonShape::rotate(const Point2D &origin, float angleRad) {
+void PolygonShape::rotate(const Point2D &origin, float angle) {
     for (int i = 0; i < points.size(); i++) {
-        points[i].rotate(origin, angleRad);
+        points[i].rotate(origin, angle);
     }
 }
 void PolygonShape::scale(const Point2D &origin, float kx, float ky) {
@@ -178,9 +178,9 @@ void PolylineShape::translate(float tx, float ty) {
         points[i].translate(tx, ty);
     }
 }
-void PolylineShape::rotate(const Point2D &origin, float angleRad) {
+void PolylineShape::rotate(const Point2D &origin, float angle) {
     for (int i = 0; i < points.size(); i++) {
-        points[i].rotate(origin, angleRad);
+        points[i].rotate(origin, angle);
     }
 }
 void PolylineShape::scale(const Point2D &origin, float kx, float ky) {

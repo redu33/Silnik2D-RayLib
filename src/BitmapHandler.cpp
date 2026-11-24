@@ -11,7 +11,10 @@ void BitmapHandler::loadFromFile(string filename) {
 }
 
 void BitmapHandler::destroy() {
-    UnloadTexture(texture);
+    if (texture.id != 0) {
+        UnloadTexture(texture);
+        texture.id = 0;
+    }
 }
 
 void BitmapHandler::draw(float x, float y, float scale) {

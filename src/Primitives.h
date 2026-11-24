@@ -27,7 +27,7 @@ public:
     void draw(PrimitiveRenderer &renderer, Color color);
 
     void translate(float tx, float ty) override;
-    void rotate(const Point2D &origin, float angleRad) override;
+    void rotate(const Point2D &origin, float angle) override;
     void scale(const Point2D &origin, float kx, float ky) override;
 };
 
@@ -46,7 +46,7 @@ public:
     void draw(PrimitiveRenderer &renderer, Color color);
 
     void translate(float tx, float ty) override;
-    void rotate(const Point2D &origin, float angleRad) override;
+    void rotate(const Point2D &origin, float angle) override;
     void scale(const Point2D &origin, float kx, float ky) override;
 };
 
@@ -69,7 +69,7 @@ public:
     Color getPixelColor(int x, int y);
     void clearBuffer(Color clearColor);
     bool areColorsEqual(Color c1, Color c2);
-    void boundaryFill(Point2D seed, Color fillColor, Color boundryColor);
+    void boundaryFill(Point2D point, Color fillColor, Color boundaryColor);
 };
 
 //
