@@ -125,7 +125,13 @@ void Engine::renderScreen(){
 
     RectangleShape kwadrat = RectangleShape(Point2D(100, 100), 200, 200, WHITE);
     kwadrat.rotate(kwadrat.getCenter(), 0.73f);
+    kwadrat.scale(kwadrat.getCenter(), 0.5, 0.5);
+    kwadrat.translate(400,400);
     kwadrat.draw(renderer);
+    renderer.boundaryFill(kwadrat.getCenter(), WHITE, WHITE);
+    RectangleShape kwadrat2 = RectangleShape(Point2D(300,300), 100, 100, RED);
+    kwadrat2.draw(renderer);
+    renderer.boundaryFill(kwadrat2.getCenter(), RED, RED);
 
     player.draw(renderer);
     EndDrawing();
